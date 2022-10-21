@@ -170,7 +170,7 @@ class PembelianController extends Controller
 
 
             $stok = Stok::where('product_id', '=', $historystoks->id)->first();
-            //dd($stok);
+            
             $stok->current_stok += $historystoks->pivot->quantity;
             $stok->update();
 

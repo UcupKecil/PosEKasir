@@ -17,6 +17,11 @@ class Penjualan extends Model
         return $this->hasMany(PenjualanItem::class);
     }
 
+    public function historystoks()
+    {
+        return $this->hasMany(HistoryStok::class);
+    }
+
     public function pembayarans()
     {
         return $this->hasMany(Pembayaran::class);
