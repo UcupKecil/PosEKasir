@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StokController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\SettingController;
@@ -32,6 +33,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::resource('products', ProductController::class);
+    Route::resource('stoks', StokController::class);
 
 
 

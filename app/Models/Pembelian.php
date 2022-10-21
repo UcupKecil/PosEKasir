@@ -17,6 +17,11 @@ class Pembelian extends Model
         return $this->hasMany(PembelianItem::class);
     }
 
+    public function historystoks()
+    {
+        return $this->hasMany(HistoryStok::class);
+    }
+
     public function pengeluarans()
     {
         return $this->hasMany(Pengeluaran::class);

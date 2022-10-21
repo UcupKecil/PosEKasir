@@ -6,6 +6,7 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 

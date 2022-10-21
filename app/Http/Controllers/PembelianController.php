@@ -7,6 +7,8 @@ use App\Http\Requests\PembelianUpdateRequest;
 use App\Http\Resources\PembelianResource;
 use App\Models\Pembelian;
 use App\Models\PembelianItem;
+use App\Models\HistoryStok;
+use App\Models\Stok;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -157,6 +159,32 @@ class PembelianController extends Controller
             $item->quantity = $item->quantity - $item->pivot->quantity;
             $item->save();
         }
+
+        foreach ($buy as $historystoks) {
+            $pembelian->historystoks()->create([
+
+                'stok' => $historystoks->pivot->quantity,
+                'product_id' => $historystoks->id,
+                'user_id' => $request->user()->id,
+            ]);
+
+
+            $stok = Stok::where('product_id', '=', $historystoks->id)->first();
+            //dd($stok);
+            $stok->current_stok += $historystoks->pivot->quantity;
+            $stok->update();
+
+
+
+        }
+
+        // $detail = PembelianDetail::where('id_pembelian', '=', $request['idpembelian'])->get();
+        // foreach($detail as $data){
+        //     $produk = Produk::where('kode_produk', '=', $data->kode_produk)->first();
+        //     $produk->stok += $data->jumlah;
+        //     $produk->update();
+        // }
+
         $request->user()->buy()->detach();
         $pembelian->pengeluarans()->create([
             'amount' => $request->amount,

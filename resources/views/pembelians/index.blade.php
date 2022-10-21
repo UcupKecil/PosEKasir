@@ -3,7 +3,7 @@
 @section('title', 'Pembelians List')
 @section('content-header', 'Pembelian List')
 @section('content-actions')
-    <a href="{{route('cart.index')}}" class="btn btn-primary">Open POS</a>
+    <a href="{{route('buy.index')}}" class="btn btn-primary">GUDANG</a>
 @endsection
 {{-- @section('css')
 <link rel="stylesheet" href="{{ asset('plugins/sweetalert2/sweetalert2.min.css') }}">
