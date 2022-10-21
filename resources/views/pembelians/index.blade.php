@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Penjualans List')
-@section('content-header', 'Penjualan List')
+@section('title', 'Pembelians List')
+@section('content-header', 'Pembelian List')
 @section('content-actions')
     <a href="{{route('cart.index')}}" class="btn btn-primary">Open POS</a>
 @endsection
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-md-7"></div>
             <div class="col-md-5">
-                <form action="{{route('penjualans.index')}}">
+                <form action="{{route('pembelians.index')}}">
                     <div class="row">
                         <div class="col-md-5">
                             <input type="date" name="start_date" class="form-control" value="{{request('start_date')}}" />
@@ -41,9 +41,9 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nama Konsumen</th>
+                    <th>Nama Suplier</th>
                     <th>Total</th>
-                    <th>Pembayaran</th>
+                    <th>Pengeluaran</th>
                     <th>Status</th>
                     <th>Sisa</th>
                     <th>Tanggal</th>
@@ -51,27 +51,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($penjualans as $penjualan)
+                @foreach ($pembelians as $pembelian)
                 <tr>
-                    <td>{{$penjualan->id}}</td>
-                    <td>{{$penjualan->getCustomerName()}}</td>
-                    <td>{{ config('settings.currency_symbol') }} {{$penjualan->formattedTotal()}}</td>
-                    <td>{{ config('settings.currency_symbol') }} {{$penjualan->formattedReceivedAmount()}}</td>
+                    <td>{{$pembelian->id}}</td>
+                    <td>{{$pembelian->getSuplierName()}}</td>
+                    <td>{{ config('settings.currency_symbol') }} {{$pembelian->formattedTotal()}}</td>
+                    <td>{{ config('settings.currency_symbol') }} {{$pembelian->formattedReceivedAmount()}}</td>
                     <td>
-                        @if($penjualan->receivedAmount() == 0)
+                        @if($pembelian->receivedAmount() == 0)
                             <span class="badge badge-danger">Belum Bayar</span>
-                        @elseif($penjualan->receivedAmount() < $penjualan->total())
+                        @elseif($pembelian->receivedAmount() < $pembelian->total())
                             <span class="badge badge-warning">Dicicil</span>
-                        @elseif($penjualan->receivedAmount() == $penjualan->total())
+                        @elseif($pembelian->receivedAmount() == $pembelian->total())
                             <span class="badge badge-success">Lunas</span>
-                        @elseif($penjualan->receivedAmount() > $penjualan->total())
+                        @elseif($pembelian->receivedAmount() > $pembelian->total())
                             <span class="badge badge-info">Pengembalian</span>
                         @endif
                     </td>
-                    <td>{{config('settings.currency_symbol')}} {{number_format($penjualan->total() - $penjualan->receivedAmount(), 2)}}</td>
-                    <td>{{$penjualan->created_at}}</td>
+                    <td>{{config('settings.currency_symbol')}} {{number_format($pembelian->total() - $pembelian->receivedAmount(), 2)}}</td>
+                    <td>{{$pembelian->created_at}}</td>
                     <td>
-                        <a class="btn btn-default" href="{{route('cetaknotacustomer' , $penjualan->id)}}" target="_blank"><i class="fa fa-print"></i> Struk</a>
+                        <a class="btn btn-default" href="{{route('cetaknotasuplier' , $pembelian->id)}}" target="_blank"><i class="fa fa-print"></i> Struk</a>
 
 
                     </td>
@@ -90,7 +90,7 @@
                 </tr>
             </tfoot>
         </table>
-        {{ $penjualans->render() }}
+        {{ $pembelians->render() }}
     </div>
 </div>
 @endsection
@@ -115,7 +115,7 @@
                         {{-- <th>Total</th> --}}
                         {{-- <th>Dibayar</th> --}}
 
-                        {{-- <th>Sisa Pembayaran</th> --}}
+
 
                         {{-- <th>Tindakan</th> --}}
                     {{-- </tr>
@@ -144,7 +144,7 @@
     var table = $('.yajra-datatable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('penjualans.list') }}",
+        ajax: "{{ route('pembelians.list') }}",
         columns: [
             {data: 'DT_RowIndex', searchable: false, orderable: false},
             {data: 'first_name', name: 'first_name'},

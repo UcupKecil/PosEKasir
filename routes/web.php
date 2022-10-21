@@ -2,10 +2,13 @@
 
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BuyController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriBeritaController;
@@ -30,7 +33,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
     Route::resource('products', ProductController::class);
 
-    
+
 
     Route::get('kategoris', [KategoriController::class, 'index']);
     Route::post('kategoris', [KategoriController::class, 'tambah'])->name('kategoris.tambah');
@@ -42,25 +45,34 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/kategoriberita', [KategoriBeritaController::class, 'index']);
 
     Route::resource('customers', CustomerController::class);
+    Route::resource('supliers', SuplierController::class);
     Route::resource('orders', OrderController::class);
     Route::resource('penjualans', PenjualanController::class);
-    //Route::get('/penjualans/cetaksantri', [PenjualanController::class, 'cetaksantri'])->name('penjualans.cetaksantri');
+    Route::resource('pembelians', PembelianController::class);
+
 
     Route::get('penjualan/list', [PenjualanController::class, 'getPenjualan'])->name('penjualans.list');
-
+    Route::get('pembelian/list', [PembelianController::class, 'getPembelian'])->name('pembelians.list');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::post('/cart/change-qty', [CartController::class, 'changeQty']);
     Route::delete('/cart/delete', [CartController::class, 'delete']);
     Route::delete('/cart/empty', [CartController::class, 'empty']);
 
+    Route::get('/buy', [BuyController::class, 'index'])->name('buy.index');
+    Route::post('/buy', [BuyController::class, 'store'])->name('buy.store');
+    Route::post('/buy/change-qty', [BuyController::class, 'changeQty']);
+    Route::delete('/buy/delete', [BuyController::class, 'delete']);
+    Route::delete('/buy/empty', [BuyController::class, 'empty']);
+
 
 
     Route::get('/laporan', 'App\Http\Controllers\LaporanController@index');
     Route::get('/exportlaporan', 'App\Http\Controllers\LaporanController@export');
     Route::get('/exportkwitansi', 'App\Http\Controllers\LaporanController@exportkwitansi');
-    //Route::get('cetaksantri', 'App\Http\Controllers\PenjualanController@show');
-    Route::get('cetaknota/{id}', [PenjualanController::class, 'cetaknota'])->name('cetaknota');
+
+    Route::get('cetaknotacustomer/{id}', [PenjualanController::class, 'cetaknotacustomer'])->name('cetaknotacustomer');
+    Route::get('cetaknotasuplier/{id}', [PembelianController::class, 'cetaknotasuplier'])->name('cetaknotasuplier');
     Route::get('kategoriproduk/{id}', [ProductController::class, 'kategoriproduk'])->name('kategoriproduk');
 
 });

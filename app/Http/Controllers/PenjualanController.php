@@ -46,7 +46,7 @@ class PenjualanController extends Controller
 
     }
 
-    public function cetaknota($id)
+    public function cetaknotacustomer($id)
     {
     $penjualan = Penjualan::select('*')
                 ->where('id', '=', $id)
@@ -79,7 +79,7 @@ class PenjualanController extends Controller
 
     $no = 0;
 
-    $pdf = PDF::loadView('penjualans.cetaknota', compact('detail', 'penjualan', 'setting', 'no','totals','pembayarans'));
+    $pdf = PDF::loadView('penjualans.cetaknotacustomer', compact('detail', 'penjualan', 'setting', 'no','totals','pembayarans'));
     $pdf->setPaper(array(0,0,200,600), 'potrait');
     return $pdf->stream('Laporan-Data-Santri.pdf');
     }
