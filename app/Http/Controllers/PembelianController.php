@@ -105,7 +105,7 @@ class PembelianController extends Controller
 
         if ($request->ajax()) {
 
-            $data = DB::table('supliers')->orderBy('first_name');
+            $data = DB::table('supliers')->orderBy('name');
 
 
             return Datatables::of($data)
@@ -170,7 +170,7 @@ class PembelianController extends Controller
 
 
             $stok = Stok::where('product_id', '=', $historystoks->id)->first();
-            
+
             $stok->current_stok += $historystoks->pivot->quantity;
             $stok->update();
 

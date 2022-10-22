@@ -13,12 +13,20 @@ class SuplierController extends Controller
 {
 
     public function index() {
+        if (request()->wantsJson()) {
+            return response(
+                Suplier::all()
+            );
+        }
+        $supliers = Suplier::latest()->paginate(10);
+
+
         if(request()->ajax()) {
             return datatables()->of(Suplier::select('*'))
             ->addColumn('action', 'companies.action')
             ->rawColumns(['action'])
             ->addIndexColumn()->make(true);
-        } return view('supliers.index');
+        } return view('supliers.index')->with('supliers', $supliers);
     }
 
     public function getSupliers(Request $request)

@@ -247,7 +247,7 @@ class Buy extends Component {
                             </form>
                         </div>
                         <div className="col">
-                            <select
+                        <select
                                 className="form-control"
                                 onChange={this.setSuplierId}
                             >
@@ -256,7 +256,7 @@ class Buy extends Component {
                                     <option
                                         key={cus.id}
                                         value={cus.id}
-                                    >{`${cus.first_name} ${cus.last_name}`}</option>
+                                    >{`${cus.name} `}</option>
                                 ))}
                             </select>
                         </div>
