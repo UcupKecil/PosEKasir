@@ -31,6 +31,12 @@ class ProductController extends Controller
         ->get();
 
         $products = new Product();
+        // $products = Product::Join('stoks', 'products.id', '=', 'stoks.product_id')
+        // ->select([
+        //     'products.*', 'stoks.current_stok as quantity'
+        // ])
+        // ->get();
+
         if ($request->search) {
             $products = $products->where('name', 'LIKE', "%{$request->search}%" )
             ->orWhere('kategori_id','like',"%{$request->search}%");
@@ -85,9 +91,8 @@ class ProductController extends Controller
             'barcode' => $request->barcode,
             'harga_beli' => $request->harga_beli,
             'price' => $request->price,
-            'kategori_id' => $request->kategori,
-            // 'quantity' => 0,
-            // 'status' => $request->status
+            'kategori_id' => $request->kategori_id,
+            'status' => $request->status,
         ]);
 
         $stok = Stok::create([

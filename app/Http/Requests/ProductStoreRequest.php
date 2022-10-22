@@ -29,10 +29,9 @@ class ProductStoreRequest extends FormRequest
             'image' => 'image',
             'barcode' => 'required|string|max:50|unique:products',
             'harga_beli' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/|nullable',
-            'kategori_id' => 'required'
-            // 'quantity' => 'required|integer|min:0',
-            // 'status' => 'required|boolean',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'kategori_id' => 'required',
+            'status' => 'required|boolean',
 
         ];
     }
