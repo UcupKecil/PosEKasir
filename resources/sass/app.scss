@@ -32,6 +32,16 @@ $fa-font-path: "@fortawesome/fontawesome-free/webfonts";
     }
 }
 
+.user-buy {
+    .card {
+        height: 400px;
+    }
+    .qty {
+        width: 45px;
+        float: left;
+    }
+}
+
 .order-product {
     .item {
         float: left;

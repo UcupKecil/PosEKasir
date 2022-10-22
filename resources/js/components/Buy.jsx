@@ -4,32 +4,32 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { sum } from "lodash";
 
-class Cart extends Component {
+class Buy extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cart: [],
+            buy: [],
             products: [],
             kategoris: [],
-            customers: [],
+            supliers: [],
             barcode: "",
             search: "",
             kategori_id: "",
-            customer_id: ""
+            suplier_id: ""
         };
 
-        this.loadCart = this.loadCart.bind(this);
+        this.loadBuy = this.loadBuy.bind(this);
         this.handleOnChangeBarcode = this.handleOnChangeBarcode.bind(this);
         this.handleScanBarcode = this.handleScanBarcode.bind(this);
         this.handleChangeQty = this.handleChangeQty.bind(this);
-        this.handleEmptyCart = this.handleEmptyCart.bind(this);
+        this.handleEmptyBuy = this.handleEmptyBuy.bind(this);
         this.loadKategoris = this.loadKategoris.bind(this);
         this.loadProducts = this.loadProducts.bind(this);
 
         this.handleChangeSearch = this.handleChangeSearch.bind(this);
         this.handleChangeKategori = this.handleChangeKategori.bind(this);
         this.handleSeach = this.handleSeach.bind(this);
-        this.setCustomerId = this.setCustomerId.bind(this);
+        this.setSuplierId = this.setSuplierId.bind(this);
         this.handleClickKategori = this.handleClickKategori.bind(this)
         this.handleClickSubmit = this.handleClickSubmit.bind(this)
     }
@@ -37,17 +37,17 @@ class Cart extends Component {
 
 
     componentDidMount() {
-        // load user cart
-        this.loadCart();
+        // load user buy
+        this.loadBuy();
         this.loadProducts();
         this.loadKategoris();
-        this.loadCustomers();
+        this.loadSupliers();
     }
 
-    loadCustomers() {
-        axios.get(`/admin/customers`).then(res => {
-            const customers = res.data;
-            this.setState({ customers });
+    loadSupliers() {
+        axios.get(`/admin/supliers`).then(res => {
+            const supliers = res.data;
+            this.setState({ supliers });
         });
     }
 
@@ -77,10 +77,10 @@ class Cart extends Component {
         this.setState({ barcode });
     }
 
-    loadCart() {
-        axios.get("/admin/cart").then(res => {
-            const cart = res.data;
-            this.setState({ cart });
+    loadBuy() {
+        axios.get("/admin/buy").then(res => {
+            const buy = res.data;
+            this.setState({ buy });
         });
     }
 
@@ -89,9 +89,9 @@ class Cart extends Component {
         const { barcode } = this.state;
         if (!!barcode) {
             axios
-                .post("/admin/cart", { barcode })
+                .post("/admin/buy", { barcode })
                 .then(res => {
-                    this.loadCart();
+                    this.loadBuy();
                     this.setState({ barcode: "" });
                 })
                 .catch(err => {
@@ -100,40 +100,40 @@ class Cart extends Component {
         }
     }
     handleChangeQty(product_id, qty) {
-        const cart = this.state.cart.map(c => {
+        const buy = this.state.buy.map(c => {
             if (c.id === product_id) {
                 c.pivot.quantity = qty;
             }
             return c;
         });
 
-        this.setState({ cart });
+        this.setState({ buy });
 
         axios
-            .post("/admin/cart/change-qty", { product_id, quantity: qty })
+            .post("/admin/buy/change-qty", { product_id, quantity: qty })
             .then(res => { })
             .catch(err => {
                 Swal.fire("Error!", err.response.data.message, "error");
             });
     }
 
-    getTotal(cart) {
-        const total = cart.map(c => c.pivot.quantity * c.price);
+    getTotal(buy) {
+        const total = buy.map(c => c.pivot.quantity * c.price);
         return sum(total).toFixed(2);
     }
 
     handleClickDelete(product_id) {
         axios
-            .post("/admin/cart/delete", { product_id, _method: "DELETE" })
+            .post("/admin/buy/delete", { product_id, _method: "DELETE" })
             .then(res => {
-                const cart = this.state.cart.filter(c => c.id !== product_id);
-                this.setState({ cart });
+                const buy = this.state.buy.filter(c => c.id !== product_id);
+                this.setState({ buy });
             });
     }
 
-    handleEmptyCart() {
-        axios.post("/admin/cart/empty", { _method: "DELETE" }).then(res => {
-            this.setState({ cart: [] });
+    handleEmptyBuy() {
+        axios.post("/admin/buy/empty", { _method: "DELETE" }).then(res => {
+            this.setState({ buy: [] });
         });
     }
     handleChangeSearch(event) {
@@ -158,15 +158,15 @@ class Cart extends Component {
         this.loadProducts(kategori_id);
     }
 
-    addProductToCart(barcode) {
+    addProductToBuy(barcode) {
         let product = this.state.products.find(p => p.barcode === barcode);
         if (!!product) {
-            // if product is already in cart
-            let cart = this.state.cart.find(c => c.id === product.id);
-            if (!!cart) {
+            // if product is already in buy
+            let buy = this.state.buy.find(c => c.id === product.id);
+            if (!!buy) {
                 // update quantity
                 this.setState({
-                    cart: this.state.cart.map(c => {
+                    buy: this.state.buy.map(c => {
                         if (c.id === product.id && product.quantity > c.pivot.quantity) {
                             c.pivot.quantity = c.pivot.quantity + 1;
                         }
@@ -184,14 +184,14 @@ class Cart extends Component {
                         }
                     };
 
-                    this.setState({ cart: [...this.state.cart, product] });
+                    this.setState({ buy: [...this.state.buy, product] });
                 }
             }
 
             axios
-                .post("/admin/cart", { barcode })
+                .post("/admin/buy", { barcode })
                 .then(res => {
-                    // this.loadCart();
+                    // this.loadBuy();
                     console.log(res);
                 })
                 .catch(err => {
@@ -200,22 +200,22 @@ class Cart extends Component {
         }
     }
 
-    setCustomerId(event) {
-        this.setState({ customer_id: event.target.value });
+    setSuplierId(event) {
+        this.setState({ suplier_id: event.target.value });
     }
 
 
     handleClickSubmit() {
         Swal.fire({
-            title: 'Pembayaran',
+            title: 'Pembelian',
             input: 'text',
-            inputValue: this.getTotal(this.state.cart),
+            inputValue: this.getTotal(this.state.buy),
             showCancelButton: true,
             confirmButtonText: 'Send',
             showLoaderOnConfirm: true,
             preConfirm: (amount) => {
-                return axios.post('/admin/penjualans', { customer_id: this.state.customer_id, amount }).then(res => {
-                    this.loadCart();
+                return axios.post('/admin/pembelians', { suplier_id: this.state.suplier_id, amount }).then(res => {
+                    this.loadBuy();
                     return res.data;
                 }).catch(err => {
                     Swal.showValidationMessage(err.response.data.message)
@@ -230,7 +230,7 @@ class Cart extends Component {
 
     }
     render() {
-        const { cart, products,kategoris, customers, barcode } = this.state;
+        const { buy, products,kategoris, supliers, barcode } = this.state;
         return (
             <div className="row">
                 <div className="col-md-6 col-lg-4">
@@ -249,10 +249,10 @@ class Cart extends Component {
                         <div className="col">
                             <select
                                 className="form-control"
-                                onChange={this.setCustomerId}
+                                onChange={this.setSuplierId}
                             >
-                                <option value="">Walking Customer</option>
-                                {customers.map(cus => (
+                                <option value="">Walking Suplier</option>
+                                {supliers.map(cus => (
                                     <option
                                         key={cus.id}
                                         value={cus.id}
@@ -261,7 +261,7 @@ class Cart extends Component {
                             </select>
                         </div>
                     </div>
-                    <div className="user-cart">
+                    <div className="user-buy">
                         <div className="card">
                             <table className="table table-striped">
                                 <thead>
@@ -272,7 +272,7 @@ class Cart extends Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {cart.map(c => (
+                                    {buy.map(c => (
                                         <tr key={c.id}>
                                             <td>{c.name}</td>
                                             <td>
@@ -314,7 +314,7 @@ class Cart extends Component {
                     <div className="row">
                         <div className="col">Total:</div>
                         <div className="col text-right">
-                            {window.APP.currency_symbol} {this.getTotal(cart)}
+                            {window.APP.currency_symbol} {this.getTotal(buy)}
                         </div>
                     </div>
                     <div className="row">
@@ -322,8 +322,8 @@ class Cart extends Component {
                             <button
                                 type="button"
                                 className="btn btn-danger btn-block"
-                                onClick={this.handleEmptyCart}
-                                disabled={!cart.length}
+                                onClick={this.handleEmptyBuy}
+                                disabled={!buy.length}
                             >
                                 Cancel
                             </button>
@@ -332,7 +332,7 @@ class Cart extends Component {
                             <button
                                 type="button"
                                 className="btn btn-primary btn-block"
-                                disabled={!cart.length}
+                                disabled={!buy.length}
                                 onClick={this.handleClickSubmit}
                             >
                                 Submit
@@ -393,7 +393,7 @@ class Cart extends Component {
                     <div className="order-product">
                         {products.map(p => (
                             <div
-                                onClick={() => this.addProductToCart(p.barcode)}
+                                onClick={() => this.addProductToBuy(p.barcode)}
                                 key={p.id}
                                 className="item"
                             >
@@ -408,8 +408,8 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+export default Buy;
 
-if (document.getElementById("cart")) {
-    ReactDOM.render(<Cart />, document.getElementById("cart"));
+if (document.getElementById("buy")) {
+    ReactDOM.render(<Buy />, document.getElementById("buy"));
 }

@@ -43,19 +43,27 @@
                 <li class="nav-item has-treeview">
                     <a href="{{ route('cart.index') }}" class="nav-link {{ activeSegment('cart') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Open POS</p>
+                        <p>Kasir</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('orders.index') }}" class="nav-link {{ activeSegment('orders') }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Orders</p>
-                    </a>
-                </li>
+
                 <li class="nav-item has-treeview">
                     <a href="{{ route('penjualans.index') }}" class="nav-link {{ activeSegment('penjualans') }}">
                         <i class="nav-icon fas fa-cart-plus"></i>
                         <p>Penjualan</p>
+                    </a>
+                </li>
+                
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('pembelians.index') }}" class="nav-link {{ activeSegment('pembelians') }}">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>Pembelian</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('buy.index') }}" class="nav-link {{ activeSegment('buy') }}">
+                        <i class="nav-icon fas fa-cart-plus"></i>
+                        <p>Gudang</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">

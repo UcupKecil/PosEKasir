@@ -11,11 +11,13 @@ class Product extends Model
         'description',
         'image',
         'barcode',
+
         'harga_beli',
         'price',
         'kategori_id'
         // 'quantity',
         // 'status'
+
     ];
 
     public function kategori() {

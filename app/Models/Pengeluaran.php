@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 
-class Stok extends Model
+class Pengeluaran extends Model
 {
     protected $fillable = [
-        'current_stok',
-        'product_id'
+        'amount',
+        'pembelian_id',
+        'user_id',
     ];
 }

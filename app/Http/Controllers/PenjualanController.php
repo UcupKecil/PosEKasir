@@ -6,6 +6,7 @@ use App\Http\Requests\PenjualanStoreRequest;
 use App\Http\Requests\PenjualanUpdateRequest;
 use App\Http\Resources\PenjualanResource;
 use App\Models\Penjualan;
+use App\Models\Stok;
 use App\Models\PenjualanItem;
 use App\Models\Setting;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class PenjualanController extends Controller
 
     }
 
-    public function cetaknota($id)
+    public function cetaknotacustomer($id)
     {
     $penjualan = Penjualan::select('*')
                 ->where('id', '=', $id)
@@ -79,7 +80,7 @@ class PenjualanController extends Controller
 
     $no = 0;
 
-    $pdf = PDF::loadView('penjualans.cetaknota', compact('detail', 'penjualan', 'setting', 'no','totals','pembayarans'));
+    $pdf = PDF::loadView('penjualans.cetaknotacustomer', compact('detail', 'penjualan', 'setting', 'no','totals','pembayarans'));
     $pdf->setPaper(array(0,0,200,600), 'potrait');
     return $pdf->stream('Laporan-Data-Santri.pdf');
     }
@@ -157,6 +158,23 @@ class PenjualanController extends Controller
             $item->quantity = $item->quantity - $item->pivot->quantity;
             $item->save();
         }
+
+
+        foreach ($cart as $historystoks) {
+            $penjualan->historystoks()->create([
+                'stok' => -($historystoks->pivot->quantity),
+                'product_id' => $historystoks->id,
+                'user_id' => $request->user()->id,
+            ]);
+
+            $stok = Stok::where('product_id', '=', $historystoks->id)->first();
+            $stok->current_stok -= $historystoks->pivot->quantity;
+            $stok->update();
+
+        }
+
+
+
         $request->user()->cart()->detach();
         $penjualan->pembayarans()->create([
             'amount' => $request->amount,

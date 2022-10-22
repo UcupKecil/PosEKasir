@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Penjualan extends Model
+class Pembelian extends Model
 {
     protected $fillable = [
-        'customer_id',
+        'suplier_id',
         'user_id',
         'created_at',
     ];
 
     public function items()
     {
-        return $this->hasMany(PenjualanItem::class);
+        return $this->hasMany(PembelianItem::class);
     }
 
     public function historystoks()
@@ -22,22 +22,22 @@ class Penjualan extends Model
         return $this->hasMany(HistoryStok::class);
     }
 
-    public function pembayarans()
+    public function pengeluarans()
     {
-        return $this->hasMany(Pembayaran::class);
+        return $this->hasMany(Pengeluaran::class);
     }
 
-    public function customer()
+    public function suplier()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Suplier::class);
     }
 
-    public function getCustomerName()
+    public function getSuplierName()
     {
-        if($this->customer) {
-            return $this->customer->first_name . ' ' . $this->customer->last_name;
+        if($this->suplier) {
+            return $this->suplier->first_name . ' ' . $this->suplier->last_name;
         }
-        return 'Working Customer';
+        return 'Working Suplier';
     }
 
     public function total()
@@ -54,7 +54,7 @@ class Penjualan extends Model
 
     public function receivedAmount()
     {
-        return $this->pembayarans->map(function ($i){
+        return $this->pengeluarans->map(function ($i){
             return $i->amount;
         })->sum();
     }

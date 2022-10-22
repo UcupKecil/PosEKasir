@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Suplier;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -31,6 +32,7 @@ class SuplierController extends Controller
                 ->make(true);
             }
     }
+
 
     public function create()
     {
@@ -84,6 +86,7 @@ class SuplierController extends Controller
        return response()->json([
            'status' => true,
            'msg' => 'berhasil'
+
        ]);
     }
 }

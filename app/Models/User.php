@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'user_cart')->withPivot('quantity');
     }
 
+    public function buy()
+    {
+        return $this->belongsToMany(Product::class, 'user_buy')->withPivot('quantity');
+    }
+
     public function getFullname()
     {
         return $this->first_name . ' ' . $this->last_name;
