@@ -14,7 +14,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\SuplierController;
+
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
