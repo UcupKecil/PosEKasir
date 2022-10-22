@@ -17,15 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('image')->nullable();
+            $table->string('image');
             $table->string('barcode')->unique();
             $table->decimal('harga_beli', 14, 2);
-            $table->decimal('harga_jual', 14, 2);
-            $table->boolean('status')->default(true);
-            $table->foreignId('kategori_id')->nullable();
+            $table->decimal('price', 14, 2);
+            // $table->boolean('status')->default('Tersedia');
+            $table->foreignId('kategori_id');
             $table->timestamps();
+            // $table->integer('quantity');
 
-            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('set null');
+            $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('restrict');
         });
     }
 

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Kategori;
+use App\Models\Stok;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\ProductResource;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -18,6 +21,15 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+
+
+        $detail = Product::Join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
+        ->select([
+            'products.*', 'kategoris.name as nama_kategori'
+        ])
+
+        ->get();
+
         $products = new Product();
         if ($request->search) {
             $products = $products->where('name', 'LIKE', "%{$request->search}%" )
@@ -31,7 +43,7 @@ class ProductController extends Controller
         if (request()->wantsJson()) {
             return ProductResource::collection($products);
         }
-        return view('products.index')->with('products', $products);
+        return view('products.index', compact('products','detail'));
     }
 
     /**
@@ -41,7 +53,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $Categories = Kategori::select('*')
+        ->get();
+
+        //dd($Categories->name);
+        return view('products.create', compact('Categories'));
+
+
     }
 
     /**
@@ -52,6 +70,8 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
+
+
         $image_path = '';
 
         if ($request->hasFile('image')) {
@@ -63,10 +83,18 @@ class ProductController extends Controller
             'description' => $request->description,
             'image' => $image_path,
             'barcode' => $request->barcode,
+            'harga_beli' => $request->harga_beli,
             'price' => $request->price,
-            'quantity' => $request->quantity,
-            'status' => $request->status
+            'kategori_id' => $request->kategori,
+            // 'quantity' => 0,
+            // 'status' => $request->status
         ]);
+
+        $stok = Stok::create([
+            'current_stok' => 0,
+            'product_id' => $request->user()->id,
+        ]);
+
 
         if (!$product) {
             return redirect()->back()->with('error', 'Sorry, there a problem while creating product.');
@@ -93,6 +121,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+
         return view('products.edit')->with('product', $product);
     }
 
@@ -105,12 +134,13 @@ class ProductController extends Controller
      */
     public function update(ProductUpdateRequest $request, Product $product)
     {
+
         $product->name = $request->name;
         $product->description = $request->description;
         $product->barcode = $request->barcode;
+        $product->harga_beli = $request->harga_beli;
         $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->status = $request->status;
+        // $product->kategori = $request->kategori;
 
         if ($request->hasFile('image')) {
             // Delete old image

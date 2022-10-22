@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class CustomerController extends Controller
 {
@@ -24,6 +25,20 @@ class CustomerController extends Controller
         }
         $customers = Customer::latest()->paginate(10);
         return view('customers.index')->with('customers', $customers);
+    }
+
+
+    public function getCustomers(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Customer::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', 'customers.action')
+
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     /**
@@ -44,11 +59,11 @@ class CustomerController extends Controller
      */
     public function store(CustomerStoreRequest $request)
     {
-        $avatar_path = '';
+        // $avatar_path = '';
 
-        if ($request->hasFile('avatar')) {
-            $avatar_path = $request->file('avatar')->store('customers', 'public');
-        }
+        // if ($request->hasFile('avatar')) {
+        //     $avatar_path = $request->file('avatar')->store('customers', 'public');
+        // }
 
         $customer = Customer::create([
             'first_name' => $request->first_name,
@@ -56,7 +71,7 @@ class CustomerController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'address' => $request->address,
-            'avatar' => $avatar_path,
+            // 'avatar' => $avatar_path,
             'user_id' => $request->user()->id,
         ]);
 
@@ -74,6 +89,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
+
     }
 
     /**
@@ -82,7 +98,7 @@ class CustomerController extends Controller
      * @param  \App\Models\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(Customer $customer, $kategori)
     {
         return view('customers.edit', compact('customer'));
     }
@@ -96,6 +112,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+        
         $customer->first_name = $request->first_name;
         $customer->last_name = $request->last_name;
         $customer->email = $request->email;
