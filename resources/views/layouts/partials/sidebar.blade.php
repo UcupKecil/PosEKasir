@@ -78,6 +78,12 @@
                         <p>Settings</p>
                     </a>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('supliers.index') }}" class="nav-link {{ activeSegment('supliers') }}">
+                        <i class="nav-icon fas fa-solid fa-boxes-stacked"></i>
+                        <p>Supplier</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit()">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

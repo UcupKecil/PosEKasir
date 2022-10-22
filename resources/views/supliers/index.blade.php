@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Daftar Member')
-@section('content-header', 'Daftar Member')
+@section('title', 'Daftar Suplier')
+@section('content-header', 'Daftar Suplier')
 @section('content-actions')
 
-<a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Member</a>
+<a href="{{route('supliers.create')}}" class="btn btn-primary">Tambah Suplier</a>
 
 @endsection
 
@@ -26,7 +26,7 @@
 
     <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Member</h3>
+          <h3 class="card-title">Suplier</h3>
 
 
         </div>
@@ -37,12 +37,9 @@
                   <thead>
                       <tr>
                           <th>No</th>
-                          {{-- <th>Foto</th> --}}
-                          <th>Nama Awal</th>
-                          <th>Nama Akhir</th>
-                          <th>Email</th>
-                          <th>No. Telp</th>
+                          <th>Nama</th>
                           <th>Alamat</th>
+                          <th>No. Telp</th>
                           <th>Tindakan</th>
                       </tr>
                   </thead>
@@ -52,6 +49,10 @@
           </div>
         </div>
       </div>
+
+
+
+
 
 
     </section>
@@ -75,7 +76,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Are you sure?',
-                    text: "Do you really want to delete this member?",
+                    text: "Do you really want to delete this suplier?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
@@ -97,7 +98,7 @@
 
         const deleteData = (id) => {
             Swal.fire({
-                title: 'Apa anda yakin untuk menghapus member ini?',
+                title: 'Apa anda yakin untuk menghapus suplier ini?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya',
@@ -118,7 +119,7 @@
 
                     $.ajax({
                         type:"DELETE",
-                        url: `customers/${id}`,
+                        url: `supliers/${id}`,
                         dataType: 'json',
 
                         success: function(res) {
@@ -163,16 +164,12 @@
           var table = $('.yajra-datatable').DataTable({
               processing: true,
               serverSide: true,
-              ajax: "{{ route('customers.list') }}",
-
+              ajax: "{{ route('supliers.list') }}",
               columns: [
                   {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                //   {data: 'avatar', name: 'avatar'}
-                  {data: 'first_name', name: 'first_name'},
-                  {data: 'last_name', name: 'last_name'},
-                  {data: 'email', name:'email'},
+                  {data: 'name', name: 'name'},
+                  {data: 'address', name:'address'},
                   {data: 'phone', name: 'phone'},
-                  {data: 'address', name: 'address'},
                   {
                       data: 'action',
                       name: 'action',

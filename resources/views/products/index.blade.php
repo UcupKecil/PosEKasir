@@ -15,32 +15,37 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
+                    <th>Nama Produk</th>
+                    <th>Deskripsi</th>
+                    <th>Foto</th>
                     <th>Barcode</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Actions</th>
+                    <th>Harga Beli</th>
+                    <th>Harga Jual</th>
+                    <th>Kategori</th>
+                    {{-- <th>Status</th> --}}
+                    {{-- <th>Dibuat</th>
+                    <th>Diubah</th> --}}
+                    <th>Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @foreach ($detail as $product)
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
+                    <td>{{$product->description}}</td>
                     <td><img class="product-img" src="{{ Storage::url($product->image) }}" alt=""></td>
                     <td>{{$product->barcode}}</td>
+                    <td>{{$product->harga_beli}}</td>
                     <td>{{$product->price}}</td>
-                    <td>{{$product->quantity}}</td>
-                    <td>
+                    <td>{{$product->nama_kategori}}</td>
+                    {{-- <td>{{$product->status}}</td> --}}
+                    {{-- <td>
                         <span
                             class="right badge badge-{{ $product->status ? 'success' : 'danger' }}">{{$product->status ? 'Active' : 'Inactive'}}</span>
-                    </td>
-                    <td>{{$product->created_at}}</td>
-                    <td>{{$product->updated_at}}</td>
+                    </td> --}}
+                    {{-- <td>{{$product->created_at}}</td>
+                    <td>{{$product->updated_at}}</td> --}}
                     <td>
                         <a href="{{ route('products.edit', $product) }}" class="btn btn-primary"><i
                                 class="fas fa-edit"></i></a>

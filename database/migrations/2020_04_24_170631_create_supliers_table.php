@@ -15,16 +15,10 @@ return new class extends Migration
     {
         Schema::create('supliers', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name', 20);
-            $table->string('last_name', 20);
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('avatar')->nullable();
-            $table->foreignId('user_id');
+            $table->string('name');
+            $table->text('address');
+            $table->string('phone');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -35,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('supliers');
     }
 };

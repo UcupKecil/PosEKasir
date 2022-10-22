@@ -11,8 +11,23 @@ class Product extends Model
         'description',
         'image',
         'barcode',
-        'harga_jual',
-        'quantity',
-        'status'
+
+        'harga_beli',
+        'price',
+        'kategori_id'
+        // 'quantity',
+        // 'status'
+
     ];
+
+    public function kategori() {
+        return $this->belongsTo(Kategori::class);
+
+    }
+    public function stok() {
+        return $this->belongsTo(Stok::class);
+
+    }
+
+
 }

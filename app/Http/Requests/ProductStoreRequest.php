@@ -24,13 +24,15 @@ class ProductStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:products,name',
             'description' => 'nullable|string',
-            'image' => 'nullable|image',
+            'image' => 'image',
             'barcode' => 'required|string|max:50|unique:products',
-            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'quantity' => 'required|integer',
-            'status' => 'required|boolean',
+            'harga_beli' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'price' => 'required|regex:/^\d+(\.\d{1,2})?$/|nullable',
+            'kategori_id' => 'required'
+            // 'quantity' => 'required|integer|min:0',
+            // 'status' => 'required|boolean',
 
         ];
     }

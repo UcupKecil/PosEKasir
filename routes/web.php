@@ -14,6 +14,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SuplierController;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -32,8 +33,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'store'])->name('settings.store');
+
+
     Route::resource('products', ProductController::class);
     Route::resource('stoks', StokController::class);
+
 
 
 
@@ -44,10 +48,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('kategoris/list', [KategoriController::class, 'getKategoris'])->name('kategoris.list');
 
     Route::resource('kategoris', KategoriController::class);
-    Route::get('/kategoriberita', [KategoriBeritaController::class, 'index']);
+    // Route::get('/kategoriberita', [KategoriBeritaController::class, 'index']);
 
-    Route::resource('customers', CustomerController::class);
+    Route::get('supliers', [SuplierController::class, 'index']);
+    Route::get('supliers/list', [SuplierController::class, 'getSupliers'])->name('supliers.list');
+    Route::post('supliers', [SuplierController::class, 'store'])->name('supliers.store');
     Route::resource('supliers', SuplierController::class);
+
+
+
+    Route::get('customers', [CustomerController::class, 'index']);
+    Route::get('customers/list', [CustomerController::class, 'getCustomers'])->name('customers.list');
+    Route::post('customers', [CustomerController::class, 'store'])->name('customers.store');
+    Route::resource('customers', CustomerController::class);
+
     Route::resource('orders', OrderController::class);
     Route::resource('penjualans', PenjualanController::class);
     Route::resource('pembelians', PembelianController::class);
