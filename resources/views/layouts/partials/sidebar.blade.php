@@ -28,62 +28,116 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('kategoris.index') }}" class="nav-link {{ activeSegment('kategoris') }}">
-                        <i class="nav-icon fas fa-th-large"></i>
-                        <p>Kategoris</p>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-solid fa-wallet"></i>
+                        <p>
+                          POS
+                          <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('cart.index') }}" class="nav-link {{ activeSegment('cart') }}">
+                                <i class="nav-icon fas fa-solid fa-cash-register"></i>
+                                <p>Kasir</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('penjualans.index') }}" class="nav-link {{ activeSegment('penjualans') }}">
+                                <i class="nav-icon fas fa-cart-plus"></i>
+                                <p>Penjualan</p>
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('customers.index') }}" class="nav-link {{ activeSegment('customers') }}">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>Customers</p>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('products.index') }}" class="nav-link {{ activeSegment('products') }}">
-                        <i class="nav-icon fas fa-th-large"></i>
-                        <p>Products</p>
+
+
+
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-solid fa-truck"></i>
+                      <p>
+                        Pengadaan
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
                     </a>
+
+                <ul class="nav nav-treeview">
+
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('buy.index') }}" class="nav-link {{ activeSegment('buy') }}">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>Gudang</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('products.index') }}" class="nav-link {{ activeSegment('products') }}">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>Barang</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('pembelians.index') }}" class="nav-link {{ activeSegment('pembelians') }}">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>Pembelian</p>
+                        </a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('cart.index') }}" class="nav-link {{ activeSegment('cart') }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Kasir</p>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-book"></i>
+                      <p>
+                        Data Master
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
                     </a>
+
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('kategoris.index') }}" class="nav-link {{ activeSegment('kategoris') }}">
+                                <i class="nav-icon fas fa-th-large"></i>
+                                <p>Kategori Barang</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item has-treeview">
+                            <a href="{{ route('supliers.index') }}" class="nav-link {{ activeSegment('supliers') }}">
+                                <i class="nav-icon fas fa-solid fa-boxes-stacked"></i>
+                                <p>Supplier</p>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('penjualans.index') }}" class="nav-link {{ activeSegment('penjualans') }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Penjualan</p>
-                    </a>
-                </li>
-                
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('pembelians.index') }}" class="nav-link {{ activeSegment('pembelians') }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Pembelian</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('buy.index') }}" class="nav-link {{ activeSegment('buy') }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>Gudang</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('customers.index') }}" class="nav-link {{ activeSegment('customers') }}">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Customers</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
                     <a href="{{ route('settings.index') }}" class="nav-link {{ activeSegment('settings') }}">
                         <i class="nav-icon fas fa-cogs"></i>
-                        <p>Settings</p>
+                        <p>Pengaturan</p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('supliers.index') }}" class="nav-link {{ activeSegment('supliers') }}">
-                        <i class="nav-icon fas fa-solid fa-boxes-stacked"></i>
-                        <p>Supplier</p>
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link" onclick="document.getElementById('logout-form').submit()">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
