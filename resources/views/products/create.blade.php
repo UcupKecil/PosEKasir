@@ -91,28 +91,28 @@
                 @enderror
             </div> --}}
 
-            {{-- <div class="form-group">
+            <div class="form-group">
                 <label for="status">Status</label>
                 <select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
-                    <option value="1" {{ old('status') === 1 ? 'selected' : ''}}>Tersedia</option>
-                    <option value="0" {{ old('status') === 0 ? 'selected' : ''}}>Habis</option>
+                    <option value="1" {{ old('status') === 1 ? 'selected' : ''}}>Active</option>
+                    <option value="0" {{ old('status') === 0 ? 'selected' : ''}}>Inactive</option>
                 </select>
                 @error('status')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
                 @enderror
-            </div> --}}
+            </div>
 
             <div class="form-group">
-                <label for="kategori"> Kategori </label>
-                <select name="kategori" id="kategori" class="form-control @error('kategori') is-invalid @enderror">
+                <label for="kategori_id"> Kategori </label>
+                <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
                     <option selected="selected">Pilih Kategori</option>
                       @foreach($Categories as $d)
                         <option value="{{$d->id}}">{{$d->name}}</option>
                       @endforeach
                   </select>
-                  @error('kategori')
+                  @error('kategori_id')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>

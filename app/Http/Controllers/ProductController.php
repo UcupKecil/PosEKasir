@@ -31,18 +31,18 @@ class ProductController extends Controller
         ->get();
 
         $products = new Product();
-        if ($request->search) {
-            $products = $products->where('name', 'LIKE', "%{$request->search}%" )
-            ->orWhere('kategori_id','like',"%{$request->search}%");
+        // if ($request->search) {
+        //     $products = $products->where('name', 'LIKE', "%{$request->search}%" )
+        //     ->orWhere('kategori_id','like',"%{$request->search}%");
 
-        }
-        if ($request->kategori) {
-            $products = $products->where('kategori_id', '=', "{$request->kategori}");
-        }
-        $products = $products->latest()->paginate(10);
-        if (request()->wantsJson()) {
-            return ProductResource::collection($products);
-        }
+        // }
+        // if ($request->kategori) {
+        //     $products = $products->where('kategori_id', '=', "{$request->kategori}");
+        // }
+        // $products = $products->latest()->paginate(10);
+        // if (request()->wantsJson()) {
+        //     return ProductResource::collection($products);
+        // }
         return view('products.index', compact('products','detail'));
     }
 
@@ -85,9 +85,10 @@ class ProductController extends Controller
             'barcode' => $request->barcode,
             'harga_beli' => $request->harga_beli,
             'price' => $request->price,
-            'kategori_id' => $request->kategori,
+            'kategori_id' => $request->kategori_id,
+            'status' => $request->status
             // 'quantity' => 0,
-            // 'status' => $request->status
+
         ]);
 
         $stok = Stok::create([

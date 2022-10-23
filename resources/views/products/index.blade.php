@@ -22,7 +22,7 @@
                     <th>Harga Beli</th>
                     <th>Harga Jual</th>
                     <th>Kategori</th>
-                    {{-- <th>Status</th> --}}
+                    <th>Status</th>
                     {{-- <th>Dibuat</th>
                     <th>Diubah</th> --}}
                     <th>Tindakan</th>
@@ -39,11 +39,11 @@
                     <td>{{$product->harga_beli}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->nama_kategori}}</td>
-                    {{-- <td>{{$product->status}}</td> --}}
-                    {{-- <td>
+                    <td>{{$product->status}}</td>
+                    <td>
                         <span
                             class="right badge badge-{{ $product->status ? 'success' : 'danger' }}">{{$product->status ? 'Active' : 'Inactive'}}</span>
-                    </td> --}}
+                    </td>
                     {{-- <td>{{$product->created_at}}</td>
                     <td>{{$product->updated_at}}</td> --}}
                     <td>

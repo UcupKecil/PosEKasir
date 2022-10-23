@@ -11,6 +11,7 @@ class HistoryStok extends Model
         'stok',
         'product_id',
         'pembelian_id',
+        'penjualan_id',
         'user_id'
     ];
 

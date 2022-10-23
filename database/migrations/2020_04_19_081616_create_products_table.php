@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('barcode')->unique();
             $table->decimal('harga_beli', 14, 2);
             $table->decimal('price', 14, 2);
-            // $table->boolean('status')->default('Tersedia');
             $table->foreignId('kategori_id');
+            $table->boolean('status')->default('1');
             $table->timestamps();
             // $table->integer('quantity');
 

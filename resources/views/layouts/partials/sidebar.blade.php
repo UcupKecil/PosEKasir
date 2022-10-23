@@ -82,24 +82,32 @@
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('buy.index') }}" class="nav-link {{ activeSegment('buy') }}">
-                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <i class="nav-icon fas fa-solid fa-warehouse"></i>
                             <p>Gudang</p>
                         </a>
                     </li>
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('products.index') }}" class="nav-link {{ activeSegment('products') }}">
-                            <i class="nav-icon fas fa-th-large"></i>
-                            <p>Barang</p>
+                            <i class="nav-icon fas fa-solid fa-box"></i>
+                            <p>Produk</p>
                         </a>
                     </li>
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('pembelians.index') }}" class="nav-link {{ activeSegment('pembelians') }}">
-                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <i class="nav-icon fas fa-solid fa-cart-flatbed"></i>
                             <p>Pembelian</p>
                         </a>
                     </li>
+
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('history_stoks.index') }}" class="nav-link {{ activeSegment('settings') }}">
+                            <i class="nav-icon fas fa-solid fa-clock-rotate-left"></i>
+                            <p>Histori Stok</p>
+                        </a>
+                    </li>
+
                   </ul>
                 </li>
 
