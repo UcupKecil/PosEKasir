@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('price', 14, 2);
             $table->boolean('status')->default('1');
             $table->foreignId('kategori_id');
+            $table->boolean('status')->default('1');
             $table->timestamps();
 
 

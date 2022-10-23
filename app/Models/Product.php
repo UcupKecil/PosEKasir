@@ -14,9 +14,10 @@ class Product extends Model
 
         'harga_beli',
         'price',
-        'kategori_id'
+        'kategori_id',
+        'status'
         // 'quantity',
-        // 'status'
+
 
     ];
 

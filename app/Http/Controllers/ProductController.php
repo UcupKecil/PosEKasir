@@ -30,7 +30,7 @@ class ProductController extends Controller
 
         ->get();
 
-        //$products = new Kategori();
+
         //$products = new Product();
         // $products = Product::Join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
         // ->select([
@@ -61,6 +61,7 @@ class ProductController extends Controller
         if ($request->search) {
             $products = $products->where('products.name', 'LIKE', "%{$request->search}%" )
             ->orWhere('products.kategori_id','like',"%{$request->search}%");
+
 
         }
         if ($request->kategori) {
@@ -114,6 +115,7 @@ class ProductController extends Controller
             'price' => $request->price,
             'kategori_id' => $request->kategori_id,
             'status' => $request->status,
+
         ]);
 
         $product->stoks()->create([

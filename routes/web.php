@@ -12,6 +12,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\HistoryStockController;
 use App\Http\Controllers\KategoriBeritaController;
 use App\Http\Controllers\SettingController;
 
@@ -39,7 +40,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('productbuys', ProductController::class);
     Route::resource('stoks', StokController::class);
 
-
+    Route::get('history_stoks', [HistoryStockController::class, 'index'])->name('history_stoks.index');;
+    Route::get('history_stoks/list', [HistoryStockController::class, 'getHistories'])->name('history_stoks.list');
+    Route::resource('history_stoks', HistoryStockController::class);
 
 
     Route::get('kategoris', [KategoriController::class, 'index']);
