@@ -7,7 +7,7 @@ use App\Models\Kategori;
 use App\Models\Stok;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductBuyResource;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
@@ -44,6 +44,7 @@ class ProductBuyController extends Controller
         ->join('stoks', 'products.id', '=', 'stoks.product_id')
         ->select([
             'products.id','products.name','products.image','products.barcode',
+            'products.created_at as created_at','products.harga_beli',
             'products.harga_beli as price','products.kategori_id',
             'kategoris.name as nama_kategori','stoks.current_stok as quantity'
         ])
@@ -70,7 +71,7 @@ class ProductBuyController extends Controller
         }
         $products = $products->latest()->paginate(10);
         if (request()->wantsJson()) {
-            return ProductResource::collection($products);
+            return ProductBuyResource::collection($products);
         }
         return view('products.index', compact('products','detail'));
     }

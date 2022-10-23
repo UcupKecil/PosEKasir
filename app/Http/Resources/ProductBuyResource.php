@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class ProductResource extends JsonResource
+class ProductBuyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +18,13 @@ class ProductResource extends JsonResource
         return [
             'id'=> $this->id,
             'name'=> $this->name,
-            'description' => $this->description,
+            //'description' => $this->description,
             'image' => $this->image,
             'barcode' => $this->barcode,
+            'harga_beli' => $this->price,
             'price' => $this->price,
             'quantity' => $this->quantity,
-            'status' => $this->status,
+            //'status' => $this->status,
             'created_at' => $this->created_at,
             'image_url' => Storage::url($this->image)
         ];

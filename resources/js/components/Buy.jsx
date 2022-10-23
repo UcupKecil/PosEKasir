@@ -335,7 +335,7 @@ class Buy extends Component {
                         <div className="col">
                             <button
                                 type="button"
-                                className="btn btn-primary btn-block"
+                                className="btn btn-success btn-block"
                                 disabled={!buy.length}
                                 onClick={this.handleClickSubmit}
                             >
@@ -367,7 +367,7 @@ class Buy extends Component {
 
                                 <button
                                 type="button"
-                                className="btn btn-primary btn-block"
+                                className="btn btn-success btn-block"
 
 
 
@@ -382,7 +382,7 @@ class Buy extends Component {
                             >
                                 {k.name}
                                 <br></br>
-                                {k.id}
+
                             </button>
 
                             </div>

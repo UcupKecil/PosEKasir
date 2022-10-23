@@ -378,7 +378,7 @@ class Cart extends Component {
                             >
                                 {k.name}
                                 <br></br>
-                                {k.id}
+                                
                             </button>
 
                             </div>
