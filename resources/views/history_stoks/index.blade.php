@@ -43,10 +43,10 @@
                     <tr>
                         <th>No</th>
                         <th>Stok</th>
-                        <th>Produk_ID</th>
-                        <th>Pembelian_ID</th>
-                        <th>Penjualan_ID</th>
-                        <th>User_ID</th>
+                        <th>Produk</th>
+                        <th>IN</th>
+                        <th>Out</th>
+                        <th>By</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,8 +88,8 @@
         ajax: "{{ route('history_stoks.list') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {data: 'stock', name: 'stock'},
-            {data: 'product_id', name: 'product_id'},
+            {data: 'stok', name: 'stok'},
+            {data: 'name', name: 'name'},
             {data: 'pembelian_id', name: 'pembelian_id'},
             {data: 'penjualan_id', name: 'penjualan_id'},
             {data: 'user_id', name: 'user_id'},

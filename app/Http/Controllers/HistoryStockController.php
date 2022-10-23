@@ -14,8 +14,9 @@ class HistoryStockController extends Controller
 
         ->Join('users', 'history_stoks.user_id', '=', 'users.id')
         ->select([
-            'history_stoks.*', 'products.id as product_id', 'users.id as user_id',
+            'history_stoks.*', 'products.name', 'users.id as user_id',
         ])
+        ->orderby('id','desc')
         ->get();
 
         if(request()->ajax()) {
@@ -26,7 +27,7 @@ class HistoryStockController extends Controller
             ->make(true);
             }
 
-                return view('history_stoks.index');
+                return view('history_stoks.index',compact('detail'));
 
 
         }
@@ -34,7 +35,15 @@ class HistoryStockController extends Controller
         public function getHistories(Request $request)
         {
             if ($request->ajax()) {
-                $data = HistoryStok::latest()->get();
+                //$data = HistoryStok::latest()->get();
+                $data = HistoryStok::Join('products', 'history_stoks.product_id', '=', 'products.id')
+
+                ->Join('users', 'history_stoks.user_id', '=', 'users.id')
+                ->select([
+                    'history_stoks.*', 'products.name', 'users.first_name as user_id',
+                ])
+                ->orderby('id','desc')
+                ->get();
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->rawColumns(['action'])
