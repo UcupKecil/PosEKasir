@@ -9,6 +9,6 @@ class Stok extends Model
 {
     protected $fillable = [
         'current_stok',
-        'product_id'
+        'product_id',
     ];
 }

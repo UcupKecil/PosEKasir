@@ -95,9 +95,9 @@ class ProductController extends Controller
             'status' => $request->status,
         ]);
 
-        $stok = Stok::create([
+        $product->stoks()->create([
             'current_stok' => 0,
-            'product_id' => $request->user()->id,
+            
         ]);
 
 
