@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Stok;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuyController extends Controller
 {
@@ -25,7 +26,20 @@ class BuyController extends Controller
         ]);
         $barcode = $request->barcode;
 
-        $product = Product::where('barcode', $barcode)->first();
+        //$product = Product::where('barcode', $barcode)->first();
+        $product = DB::table('products')
+        ->join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
+        ->join('stoks', 'products.id', '=', 'stoks.product_id')
+        ->select([
+            'products.id','products.name','products.image','products.barcode',
+            'products.harga_beli as price','products.kategori_id',
+            'kategoris.name as nama_kategori',
+            'stoks.current_stok as quantity'
+        ])
+        ->where('barcode', $barcode)
+        ->orderBy('products.id', 'desc')
+        ->first();
+
         $buy = $request->user()->buy()->where('barcode', $barcode)->first();
         if ($buy) {
             // check product quantity
@@ -35,16 +49,16 @@ class BuyController extends Controller
             //         'message' => 'Product available only: '. $product->quantity,
             //     ], 400);
             // }
-            
+
             // update only quantity
             $buy->pivot->quantity = $buy->pivot->quantity + 1;
             $buy->pivot->save();
         } else {
-            // if($product->quantity < 1) {
-            //     return response([
-            //         'message' => 'Product out of stock',
-            //     ], 400);
-            // }
+            if($product->quantity < -100000000000) {
+                return response([
+                    'message' => 'Product out of stock',
+                ], 400);
+            }
             $request->user()->buy()->attach($product->id, ['quantity' => 1]);
         }
 

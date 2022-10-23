@@ -36,6 +36,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
     Route::resource('products', ProductController::class);
+    Route::resource('productbuys', ProductController::class);
     Route::resource('stoks', StokController::class);
 
 

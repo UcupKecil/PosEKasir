@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
 {
@@ -24,7 +25,19 @@ class CartController extends Controller
         ]);
         $barcode = $request->barcode;
 
-        $product = Product::where('barcode', $barcode)->first();
+        //$product = Product::where('barcode', $barcode)->first();
+
+        $product = DB::table('products')
+        ->join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
+        ->join('stoks', 'products.id', '=', 'stoks.product_id')
+        ->select([
+            'products.*', 'kategoris.name as nama_kategori','stoks.current_stok as quantity'
+        ])
+        ->where('barcode', $barcode)
+        ->orderBy('products.id', 'desc')
+        ->first();
+
+
         $cart = $request->user()->cart()->where('barcode', $barcode)->first();
         if ($cart) {
             // check product quantity

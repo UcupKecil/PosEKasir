@@ -54,7 +54,7 @@ class Buy extends Component {
 
     loadProducts(search = "",kategori = "") {
         const query = !!search ? `?search=${search}` : "";
-        axios.get(`/admin/products${query}`).then(res => {
+        axios.get(`/admin/productbuys${query}`).then(res => {
             const products = res.data.data;
             this.setState({ products });
         });
@@ -121,6 +121,7 @@ class Buy extends Component {
     }
 
     getTotal(buy) {
+        console.log(buy.map);
         const total = buy.map(c => c.pivot.quantity * c.price);
         return sum(total).toFixed(2);
     }
@@ -170,14 +171,14 @@ class Buy extends Component {
                 // update quantity
                 this.setState({
                     buy: this.state.buy.map(c => {
-                        if (c.id === product.id && product.quantity > c.pivot.quantity) {
+                        if (c.id === product.id && product.quantity > -100000000) {
                             c.pivot.quantity = c.pivot.quantity + 1;
                         }
                         return c;
                     })
                 });
             } else {
-                if (product.quantity > 0) {
+                if (product.quantity > -100000000) {
                     product = {
                         ...product,
                         pivot: {

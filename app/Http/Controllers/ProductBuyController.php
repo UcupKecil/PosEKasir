@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 
-class ProductController extends Controller
+class ProductBuyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -43,7 +43,9 @@ class ProductController extends Controller
         ->join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
         ->join('stoks', 'products.id', '=', 'stoks.product_id')
         ->select([
-            'products.*', 'kategoris.name as nama_kategori','stoks.current_stok as quantity'
+            'products.id','products.name','products.image','products.barcode',
+            'products.harga_beli as price','products.kategori_id',
+            'kategoris.name as nama_kategori','stoks.current_stok as quantity'
         ])
         ->orderBy('products.id', 'desc');
 
