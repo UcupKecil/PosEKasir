@@ -11,6 +11,7 @@ class Buy extends Component {
             buy: [],
             products: [],
             kategoris: [],
+
             supliers: [],
             barcode: "",
             search: "",
@@ -70,6 +71,8 @@ class Buy extends Component {
             this.setState({ kategoris });
         });
     }
+
+
 
     handleOnChangeBarcode(event) {
         const barcode = event.target.value;
@@ -397,7 +400,10 @@ class Buy extends Component {
                                 key={p.id}
                                 className="item"
                             >
+
                                 <img src={p.image_url} alt="" />
+                                {p.nama_kategori}
+                                <br></br>
                                 <h5 style={window.APP.warning_quantity > p.quantity ? { color: 'red' } : {}}>{p.name}({p.quantity})</h5>
                             </div>
                         ))}

@@ -29,20 +29,22 @@ class BuyController extends Controller
         $buy = $request->user()->buy()->where('barcode', $barcode)->first();
         if ($buy) {
             // check product quantity
-            if($product->quantity <= $buy->pivot->quantity) {
-                return response([
-                    'message' => 'Product available only: '. $product->quantity,
-                ], 400);
-            }
+
+            // if($product->quantity <= $buy->pivot->quantity) {
+            //     return response([
+            //         'message' => 'Product available only: '. $product->quantity,
+            //     ], 400);
+            // }
+            
             // update only quantity
             $buy->pivot->quantity = $buy->pivot->quantity + 1;
             $buy->pivot->save();
         } else {
-            if($product->quantity < 1) {
-                return response([
-                    'message' => 'Product out of stock',
-                ], 400);
-            }
+            // if($product->quantity < 1) {
+            //     return response([
+            //         'message' => 'Product out of stock',
+            //     ], 400);
+            // }
             $request->user()->buy()->attach($product->id, ['quantity' => 1]);
         }
 

@@ -30,7 +30,28 @@ class ProductController extends Controller
 
         ->get();
 
-        $products = new Product();
+        //$products = new Kategori();
+        //$products = new Product();
+        // $products = Product::Join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
+        // ->select([
+        //     'products.*', 'kategoris.name as nama_kategori'
+        // ])
+
+        // ->get();
+
+        $products = DB::table('products')
+        ->join('kategoris', 'products.kategori_id', '=', 'kategoris.id')
+        ->join('stoks', 'products.id', '=', 'stoks.product_id')
+        ->select([
+            'products.*', 'kategoris.name as nama_kategori','stoks.current_stok as quantity'
+        ])
+        ->orderBy('products.id', 'desc');
+
+
+
+
+
+        //dd($products);
         // $products = Product::Join('stoks', 'products.id', '=', 'stoks.product_id')
         // ->select([
         //     'products.*', 'stoks.current_stok as quantity'
@@ -97,7 +118,7 @@ class ProductController extends Controller
 
         $product->stoks()->create([
             'current_stok' => 0,
-            
+
         ]);
 
 

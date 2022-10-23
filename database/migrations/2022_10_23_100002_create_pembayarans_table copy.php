@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 8, 4);
+            $table->decimal('amount', 14, 2);
             $table->foreignId('penjualan_id');
             $table->foreignId('user_id');
             $table->timestamps();
