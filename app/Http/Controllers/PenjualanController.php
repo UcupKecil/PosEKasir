@@ -155,8 +155,8 @@ class PenjualanController extends Controller
                 'quantity' => $item->pivot->quantity,
                 'product_id' => $item->id,
             ]);
-            $item->quantity = $item->quantity - $item->pivot->quantity;
-            $item->save();
+            // $item->quantity = $item->quantity - $item->pivot->quantity;
+            // $item->save();
         }
 
 

@@ -11,6 +11,7 @@ class Buy extends Component {
             buy: [],
             products: [],
             kategoris: [],
+
             supliers: [],
             barcode: "",
             search: "",
@@ -53,7 +54,7 @@ class Buy extends Component {
 
     loadProducts(search = "",kategori = "") {
         const query = !!search ? `?search=${search}` : "";
-        axios.get(`/admin/products${query}`).then(res => {
+        axios.get(`/admin/productbuys${query}`).then(res => {
             const products = res.data.data;
             this.setState({ products });
         });
@@ -70,6 +71,8 @@ class Buy extends Component {
             this.setState({ kategoris });
         });
     }
+
+
 
     handleOnChangeBarcode(event) {
         const barcode = event.target.value;
@@ -118,6 +121,7 @@ class Buy extends Component {
     }
 
     getTotal(buy) {
+        console.log(buy.map);
         const total = buy.map(c => c.pivot.quantity * c.price);
         return sum(total).toFixed(2);
     }
@@ -167,14 +171,14 @@ class Buy extends Component {
                 // update quantity
                 this.setState({
                     buy: this.state.buy.map(c => {
-                        if (c.id === product.id && product.quantity > c.pivot.quantity) {
+                        if (c.id === product.id && product.quantity > -100000000) {
                             c.pivot.quantity = c.pivot.quantity + 1;
                         }
                         return c;
                     })
                 });
             } else {
-                if (product.quantity > 0) {
+                if (product.quantity > -100000000) {
                     product = {
                         ...product,
                         pivot: {
@@ -247,7 +251,7 @@ class Buy extends Component {
                             </form>
                         </div>
                         <div className="col">
-                            <select
+                        <select
                                 className="form-control"
                                 onChange={this.setSuplierId}
                             >
@@ -256,7 +260,7 @@ class Buy extends Component {
                                     <option
                                         key={cus.id}
                                         value={cus.id}
-                                    >{`${cus.first_name} ${cus.last_name}`}</option>
+                                    >{`${cus.name} `}</option>
                                 ))}
                             </select>
                         </div>
@@ -397,7 +401,10 @@ class Buy extends Component {
                                 key={p.id}
                                 className="item"
                             >
+
                                 <img src={p.image_url} alt="" />
+                                {p.nama_kategori}
+                                <br></br>
                                 <h5 style={window.APP.warning_quantity > p.quantity ? { color: 'red' } : {}}>{p.name}({p.quantity})</h5>
                             </div>
                         ))}

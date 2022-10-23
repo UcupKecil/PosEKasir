@@ -37,6 +37,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
 
     Route::resource('products', ProductController::class);
+    Route::resource('productbuys', ProductController::class);
     Route::resource('stoks', StokController::class);
 
     Route::get('history_stoks', [HistoryStockController::class, 'index'])->name('history_stoks.index');;

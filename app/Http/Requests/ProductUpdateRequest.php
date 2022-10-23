@@ -25,10 +25,10 @@ class ProductUpdateRequest extends FormRequest
     {
         $product_id = $this->route('product')->id;
         return [
-            'name' => 'required|string|max:255|unique:products,name',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'image',
-            'barcode' => 'required|string|max:50|unique:products,barcode,' . $product_id,
+            'barcode' => 'required|string|max:50',
             'harga_beli' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             'price' => 'required|regex:/^\d+(\.\d{1,2})?$/',
             // 'kategori_id' => 'required'

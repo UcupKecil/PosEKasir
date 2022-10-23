@@ -35,7 +35,7 @@ class Pembelian extends Model
     public function getSuplierName()
     {
         if($this->suplier) {
-            return $this->suplier->first_name . ' ' . $this->suplier->last_name;
+            return $this->suplier->name . ' ' . $this->suplier->phone;
         }
         return 'Working Suplier';
     }

@@ -69600,7 +69600,9 @@ var Cart = /*#__PURE__*/function (_Component) {
       });
       return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["sum"])(total).toFixed(2);
     }
-  }, {
+  },
+  
+   {
     key: "handleClickDelete",
     value: function handleClickDelete(product_id) {
       var _this6 = this;

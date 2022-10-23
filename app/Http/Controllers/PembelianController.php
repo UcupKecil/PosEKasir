@@ -105,7 +105,7 @@ class PembelianController extends Controller
 
         if ($request->ajax()) {
 
-            $data = DB::table('supliers')->orderBy('first_name');
+            $data = DB::table('supliers')->orderBy('name');
 
 
             return Datatables::of($data)
@@ -156,8 +156,8 @@ class PembelianController extends Controller
                 'quantity' => $item->pivot->quantity,
                 'product_id' => $item->id,
             ]);
-            $item->quantity = $item->quantity - $item->pivot->quantity;
-            $item->save();
+            //$item->quantity = $item->quantity - $item->pivot->quantity;
+            //$item->save();
         }
 
         foreach ($buy as $historystoks) {
@@ -170,7 +170,7 @@ class PembelianController extends Controller
 
 
             $stok = Stok::where('product_id', '=', $historystoks->id)->first();
-            
+
             $stok->current_stok += $historystoks->pivot->quantity;
             $stok->update();
 

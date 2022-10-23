@@ -25,10 +25,17 @@ class Product extends Model
         return $this->belongsTo(Kategori::class);
 
     }
-    public function stok() {
-        return $this->belongsTo(Stok::class);
+    // public function stok() {
+    //     return $this->belongsTo(Stok::class);
 
+    // }
+
+    public function stoks()
+    {
+        return $this->hasMany(Stok::class);
     }
+
+
 
 
 }

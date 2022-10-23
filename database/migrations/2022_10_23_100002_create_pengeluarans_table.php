@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pembayarans', function (Blueprint $table) {
+        Schema::create('pengeluarans', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 8, 4);
-            $table->foreignId('penjualan_id');
+            $table->decimal('amount', 14, 2);
+            $table->foreignId('pembelian_id');
             $table->foreignId('user_id');
             $table->timestamps();
 
-            $table->foreign('penjualan_id')->references('id')->on('penjualans')->onDelete('cascade');
+            $table->foreign('pembelian_id')->references('id')->on('pembelians')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

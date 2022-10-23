@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pengeluarans', function (Blueprint $table) {
+        Schema::create('pembelian_items', function (Blueprint $table) {
             $table->id();
-            $table->decimal('amount', 8, 4);
+            $table->decimal('price', 14, 2);
+            $table->integer('quantity')->default(1);
             $table->foreignId('pembelian_id');
-            $table->foreignId('user_id');
+            $table->foreignId('product_id');
             $table->timestamps();
 
             $table->foreign('pembelian_id')->references('id')->on('pembelians')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pembayarans');
+        Schema::dropIfExists('order_items');
     }
 };
