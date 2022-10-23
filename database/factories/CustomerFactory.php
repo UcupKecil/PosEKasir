@@ -12,5 +12,6 @@ $factory->define(Customer::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'phone' => $faker->phoneNumber,
         'address' => $faker->address,
+        'user_id' => User::inRandomOrder()->first()->id,
     ];
 });
