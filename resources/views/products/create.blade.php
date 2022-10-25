@@ -12,14 +12,14 @@
             @csrf
 
             <div class="form-group">
-                <label for="kategori"> Kategori </label>
-                <select name="kategori_id" id="kategori" class="form-control @error('kategori') is-invalid @enderror">
-                    <option selected="selected">Pilih Kategori</option>
+                <label for="kategori_id"> Kategori </label>
+                <select name="kategori_id" id="kategori_id" class="form-control @error('kategori_id') is-invalid @enderror">
+                    <option selected="" disabled>Pilih Kategori</option>
                       @foreach($Categories as $d)
                         <option value="{{$d->id}}">{{$d->name}}</option>
                       @endforeach
                   </select>
-                  @error('kategori')
+                  @error('kategori_id')
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $message }}</strong>
                   </span>
