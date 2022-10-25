@@ -1,4 +1,6 @@
 <?php
+use Carbon\Carbon;
+
 if (!function_exists('activeSegment')) {
     function activeSegment($name, $segment = 2, $class = 'active')
     {
@@ -31,4 +33,13 @@ function tanggal_indonesia($tgl, $tampil_hari=true){
 function format_uang($angka){
 	$hasil = number_format($angka,0,',','.');
 	return $hasil;
-}	
+}
+
+
+
+
+
+function waktu($waktu)
+{
+    return Carbon::createFromTimeStamp(strtotime($waktu))->diffForHumans();
+}

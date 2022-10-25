@@ -152,7 +152,7 @@ class PembelianController extends Controller
         $buy = $request->user()->buy()->get();
         foreach ($buy as $item) {
             $pembelian->items()->create([
-                'price' => $item->price * $item->pivot->quantity,
+                'price' => $item->harga_beli * $item->pivot->quantity,
                 'quantity' => $item->pivot->quantity,
                 'product_id' => $item->id,
             ]);

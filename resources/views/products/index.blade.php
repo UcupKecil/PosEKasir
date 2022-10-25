@@ -39,7 +39,7 @@
                     <td>{{$product->harga_beli}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->nama_kategori}}</td>
-                    <td>{{$product->status}}</td>
+                    
                     <td>
                         <span
                             class="right badge badge-{{ $product->status ? 'success' : 'danger' }}">{{$product->status ? 'Active' : 'Inactive'}}</span>
